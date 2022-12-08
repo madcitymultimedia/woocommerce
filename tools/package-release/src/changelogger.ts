@@ -25,6 +25,7 @@ export const getNextVersion = ( name: string ) => {
 		} ).trim();
 	} catch ( e ) {
 		if ( e instanceof Error ) {
+			// eslint-disable-next-line no-console
 			console.log( e );
 			throw e;
 		}
@@ -46,6 +47,7 @@ export const validateChangelogEntries = ( name: string ) => {
 		} );
 	} catch ( e ) {
 		if ( e instanceof Error ) {
+			// eslint-disable-next-line no-console
 			console.log( e );
 			throw e;
 		}
@@ -60,12 +62,13 @@ export const validateChangelogEntries = ( name: string ) => {
 export const writeChangelog = ( name: string ) => {
 	try {
 		const cwd = getFilepathFromPackageName( name );
-		execSync( './vendor/bin/changelogger write', {
+		execSync( './vendor/bin/changelogger write --add-pr-num', {
 			cwd,
 			encoding: 'utf-8',
 		} );
 	} catch ( e ) {
 		if ( e instanceof Error ) {
+			// eslint-disable-next-line no-console
 			console.log( e );
 			throw e;
 		}
@@ -122,6 +125,7 @@ export const hasValidChangelogs = ( name: string ): boolean | void => {
 		} );
 	} catch ( e ) {
 		if ( e instanceof Error ) {
+			// eslint-disable-next-line no-console
 			console.log( e );
 			throw e;
 		}

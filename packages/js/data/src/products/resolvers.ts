@@ -1,13 +1,21 @@
 /**
+ * External dependencies
+ */
+import { addQueryArgs } from '@wordpress/url';
+import { apiFetch } from '@wordpress/data-controls';
+
+/**
  * Internal dependencies
  */
 import { WC_PRODUCT_NAMESPACE } from './constants';
 import { Product, ProductQuery } from './types';
 import {
+	getProductError,
 	getProductsError,
 	getProductsSuccess,
 	getProductsTotalCountError,
 	getProductsTotalCountSuccess,
+	getProductSuccess,
 } from './actions';
 import { request } from '../utils';
 
@@ -34,6 +42,23 @@ export function* getProducts( query: Partial< ProductQuery > ) {
 		return items;
 	} catch ( error ) {
 		yield getProductsError( query, error );
+		throw error;
+	}
+}
+
+export function* getProduct( productId: number ) {
+	try {
+		const product: Product = yield apiFetch( {
+			path: addQueryArgs( `${ WC_PRODUCT_NAMESPACE }/${ productId }`, {
+				context: 'edit',
+			} ),
+			method: 'GET',
+		} );
+
+		yield getProductSuccess( productId, product );
+		return product;
+	} catch ( error ) {
+		yield getProductError( productId, error );
 		throw error;
 	}
 }

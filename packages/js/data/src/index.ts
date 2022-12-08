@@ -18,9 +18,13 @@ export { ITEMS_STORE_NAME } from './items';
 export { PAYMENT_GATEWAYS_STORE_NAME } from './payment-gateways';
 export { PRODUCTS_STORE_NAME } from './products';
 export { ORDERS_STORE_NAME } from './orders';
-export { PRODUCT_ATTRIBUTES_STORE_NAME } from './product-attributes';
+export { EXPERIMENTAL_PRODUCT_ATTRIBUTES_STORE_NAME } from './product-attributes';
 export { EXPERIMENTAL_PRODUCT_SHIPPING_CLASSES_STORE_NAME } from './product-shipping-classes';
 export { EXPERIMENTAL_SHIPPING_ZONES_STORE_NAME } from './shipping-zones';
+export { EXPERIMENTAL_PRODUCT_TAGS_STORE_NAME } from './product-tags';
+export { EXPERIMENTAL_PRODUCT_CATEGORIES_STORE_NAME } from './product-categories';
+export { EXPERIMENTAL_PRODUCT_ATTRIBUTE_TERMS_STORE_NAME } from './product-attribute-terms';
+export { EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME } from './product-variations';
 export { PaymentGateway } from './payment-gateways/types';
 
 // Export hooks
@@ -73,7 +77,22 @@ export * from './countries/types';
 export * from './onboarding/types';
 export * from './plugins/types';
 export * from './products/types';
+export { ProductVariation } from './product-variations/types';
+export {
+	QueryProductAttribute,
+	ProductAttributeSelectors,
+} from './product-attributes/types';
+export * from './product-shipping-classes/types';
+export {
+	ProductAttributeTerm,
+	ProductAttributeTermsSelectors,
+} from './product-attribute-terms/types';
 export * from './orders/types';
+export {
+	ProductCategory,
+	ProductCategoryImage,
+	ProductCategorySelectors,
+} from './product-categories/types';
 
 /**
  * Internal dependencies
@@ -92,9 +111,13 @@ import type { COUNTRIES_STORE_NAME } from './countries';
 import type { PAYMENT_GATEWAYS_STORE_NAME } from './payment-gateways';
 import type { PRODUCTS_STORE_NAME } from './products';
 import type { ORDERS_STORE_NAME } from './orders';
-import type { PRODUCT_ATTRIBUTES_STORE_NAME } from './product-attributes';
+import type { EXPERIMENTAL_PRODUCT_ATTRIBUTES_STORE_NAME } from './product-attributes';
 import type { EXPERIMENTAL_PRODUCT_SHIPPING_CLASSES_STORE_NAME } from './product-shipping-classes';
 import type { EXPERIMENTAL_SHIPPING_ZONES_STORE_NAME } from './shipping-zones';
+import type { EXPERIMENTAL_PRODUCT_TAGS_STORE_NAME } from './product-tags';
+import type { EXPERIMENTAL_PRODUCT_CATEGORIES_STORE_NAME } from './product-categories';
+import type { EXPERIMENTAL_PRODUCT_ATTRIBUTE_TERMS_STORE_NAME } from './product-attribute-terms';
+import type { EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME } from './product-variations';
 
 export type WCDataStoreName =
 	| typeof REVIEWS_STORE_NAME
@@ -111,9 +134,13 @@ export type WCDataStoreName =
 	| typeof PAYMENT_GATEWAYS_STORE_NAME
 	| typeof PRODUCTS_STORE_NAME
 	| typeof ORDERS_STORE_NAME
-	| typeof PRODUCT_ATTRIBUTES_STORE_NAME
+	| typeof EXPERIMENTAL_PRODUCT_ATTRIBUTES_STORE_NAME
+	| typeof EXPERIMENTAL_PRODUCT_ATTRIBUTE_TERMS_STORE_NAME
 	| typeof EXPERIMENTAL_PRODUCT_SHIPPING_CLASSES_STORE_NAME
-	| typeof EXPERIMENTAL_SHIPPING_ZONES_STORE_NAME;
+	| typeof EXPERIMENTAL_SHIPPING_ZONES_STORE_NAME
+	| typeof EXPERIMENTAL_PRODUCT_TAGS_STORE_NAME
+	| typeof EXPERIMENTAL_PRODUCT_CATEGORIES_STORE_NAME
+	| typeof EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME;
 
 /**
  * Internal dependencies
@@ -128,6 +155,10 @@ import { OrdersSelectors } from './orders/selectors';
 import { ProductAttributeSelectors } from './product-attributes/types';
 import { ProductShippingClassSelectors } from './product-shipping-classes/types';
 import { ShippingZonesSelectors } from './shipping-zones/types';
+import { ProductTagSelectors } from './product-tags/types';
+import { ProductCategorySelectors } from './product-categories/types';
+import { ProductAttributeTermsSelectors } from './product-attribute-terms/types';
+import { ProductVariationSelectors } from './product-variations/types';
 
 // As we add types to all the package selectors we can fill out these unknown types with real ones. See one
 // of the already typed selectors for an example of how you can do this.
@@ -157,10 +188,18 @@ export type WCSelectorType< T > = T extends typeof REVIEWS_STORE_NAME
 	? WPDataSelectors
 	: T extends typeof PRODUCTS_STORE_NAME
 	? ProductsSelectors
-	: T extends typeof PRODUCT_ATTRIBUTES_STORE_NAME
+	: T extends typeof EXPERIMENTAL_PRODUCT_ATTRIBUTES_STORE_NAME
 	? ProductAttributeSelectors
 	: T extends typeof EXPERIMENTAL_PRODUCT_SHIPPING_CLASSES_STORE_NAME
 	? ProductShippingClassSelectors
+	: T extends typeof EXPERIMENTAL_PRODUCT_TAGS_STORE_NAME
+	? ProductTagSelectors
+	: T extends typeof EXPERIMENTAL_PRODUCT_CATEGORIES_STORE_NAME
+	? ProductCategorySelectors
+	: T extends typeof EXPERIMENTAL_PRODUCT_ATTRIBUTE_TERMS_STORE_NAME
+	? ProductAttributeTermsSelectors
+	: T extends typeof EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME
+	? ProductVariationSelectors
 	: T extends typeof ORDERS_STORE_NAME
 	? OrdersSelectors
 	: T extends typeof EXPERIMENTAL_SHIPPING_ZONES_STORE_NAME
@@ -174,6 +213,10 @@ export interface WCDataSelector {
 // Other exports
 export { ActionDispatchers as PluginsStoreActions } from './plugins/actions';
 export { ActionDispatchers as ProductAttributesActions } from './product-attributes/types';
+export { ActionDispatchers as ProductTagsActions } from './product-tags/types';
+export { ActionDispatchers as ProductCategoryActions } from './product-categories/types';
+export { ActionDispatchers as ProductAttributeTermsActions } from './product-attribute-terms/types';
+export { ActionDispatchers as ProductVariationsActions } from './product-variations/types';
 export { ActionDispatchers as ProductsStoreActions } from './products/actions';
 export { ActionDispatchers as ProductShippingClassesActions } from './product-shipping-classes/types';
 export { ActionDispatchers as ShippingZonesActions } from './shipping-zones/types';
